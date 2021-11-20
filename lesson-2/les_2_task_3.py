@@ -7,3 +7,24 @@ YAML-формата. Для этого: Подготовить данные дл
 возможность работы с юникодом: allow_unicode = True; Реализовать считывание данных из созданного файла и проверить,
 совпадают ли они с исходными.
 """
+
+import yaml
+
+FILE_NAME = 'file.yaml'
+date = {
+    "d_list": ['msg_1', 'msg_2', 'msg_3'],
+    "d_num": 10,
+    "d_dict": {
+        "first": '1€',
+        "second": '2€',
+        "third": '3€',
+    }
+}
+
+with open(FILE_NAME, 'w') as f_n:
+    yaml.dump(date, f_n, default_flow_style=True, allow_unicode=True)
+
+with open(FILE_NAME) as f_n:
+    load_date = yaml.safe_load(f_n)
+    if load_date == date:
+        print('Данные совпадают')
