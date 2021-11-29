@@ -3,8 +3,8 @@
 import socket
 import sys
 import json
-from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, \
-    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, RESPONDEFAULT_IP_ADDRESSSE, AUTHENTICATE, MSG, TO, FROM
+from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, PASSWORD, \
+    PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, AUTHENTICATE, MSG, TO, FROM
 from common.utils import get_message, send_message
 
 
@@ -22,14 +22,15 @@ def process_client_message(message):
             and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
         return {RESPONSE: 201}
     elif ACTION in message and message[ACTION] == AUTHENTICATE and TIME in message \
-            and USER in message and message[USER][ACCOUNT_NAME] == 'Guest':
+            and USER in message and message[USER][ACCOUNT_NAME] == 'Guest' \
+            and message[USER][PASSWORD] == 'this_is_password':
         return {RESPONSE: 202}
     elif ACTION in message and message[ACTION] == MSG and TIME in message \
             and TO in message and message[TO] == 'Guest_to' \
             and FROM in message and message[FROM] == 'Guest_from':
         return {RESPONSE: 203}
     return {
-        RESPONDEFAULT_IP_ADDRESSSE: 400,
+        RESPONSE: 400,
         ERROR: 'Bad Request'
     }
 
