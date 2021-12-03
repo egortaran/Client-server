@@ -11,7 +11,9 @@ from common.utils import get_message, send_message
 from client_func.connect_client import connect_client
 from client_func.create_presence import create_presence
 from client_func.sent_message import sent_message
+from log.client_log_config import LOG
 
+CLIENT_LOGGER = LOG
 
 def process_ans(message):
     '''
@@ -41,7 +43,7 @@ def main():
         server_address = DEFAULT_IP_ADDRESS
         server_port = DEFAULT_PORT
     except ValueError:
-        print('В качестве порта может быть указано только число в диапазоне от 1024 до 65535.')
+        CLIENT_LOGGER.critical('В качестве порта может быть указано только число в диапазоне от 1024 до 65535.')
         sys.exit(1)
 
     check_func = [
@@ -63,7 +65,7 @@ def main():
             answer = process_ans(get_message(transport))
             print(answer)
         except (ValueError, json.JSONDecodeError):
-            print('Не удалось декодировать сообщение сервера.')
+            CLIENT_LOGGER.critical('Не удалось декодировать сообщение сервера.')
 
 
 if __name__ == '__main__':

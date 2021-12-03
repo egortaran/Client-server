@@ -6,9 +6,10 @@ import json
 from common.variables import ACTION, ACCOUNT_NAME, RESPONSE, MAX_CONNECTIONS, PASSWORD, \
     PRESENCE, TIME, USER, ERROR, DEFAULT_PORT, AUTHENTICATE, MSG, TO, FROM
 from common.utils import get_message, send_message
+from log.server_log_config import LOG
 
-SERVER_LOGGER = logging.getLogger('server_log.main')
-print(SERVER_LOGGER)
+SERVER_LOGGER = LOG
+
 
 def process_client_message(message):
     '''
@@ -49,7 +50,7 @@ def main():
         if '-p' in sys.argv:
             listen_port = int(sys.argv[sys.argv.index('-p') + 1])
         else:
-            listen_port = 1
+            listen_port = DEFAULT_PORT
         if listen_port < 1024 or listen_port > 65535:
             raise ValueError
     except IndexError:
