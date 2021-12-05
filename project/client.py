@@ -11,12 +11,14 @@ from errors import ReqFieldMissingError
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, DEFAULT_PORT, ERROR, DEFAULT_IP_ADDRESS
 from common.utils import get_message, send_message
+from decos import log
 
 
 # Инициализация клиентского логера
 CLIENT_LOGGER = logging.getLogger('client')
 
 
+@log
 def create_presence(account_name='Guest'):
     """
     Функция генерирует запрос о присутствии клиента
@@ -34,6 +36,7 @@ def create_presence(account_name='Guest'):
     return out
 
 
+@log
 def process_ans(message):
     """
     Функция разбирает ответ сервера
@@ -48,6 +51,7 @@ def process_ans(message):
     raise ReqFieldMissingError(RESPONSE)
 
 
+@log
 def create_arg_parser():
     """
     Создаём парсер аргументов коммандной строки
