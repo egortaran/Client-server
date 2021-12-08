@@ -67,7 +67,6 @@ def create_presence(account_name='Guest'):
 
 
 @log
-def process_response_ans(message):
     """
     Функция разбирает ответ сервера на сообщение о присутствии,
     возращает 200 если все ОК или генерирует исключение при ошибке
@@ -82,9 +81,7 @@ def process_response_ans(message):
 
 
 @log
-def arg_parser():
-    """Создаём парсер аргументов коммандной строки
-    и читаем параметры, возвращаем 3 параметра
+
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')
