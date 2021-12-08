@@ -67,6 +67,7 @@ def create_presence(account_name='Guest'):
 
 
 @log
+def process_response_ans(message):
     """
     Функция разбирает ответ сервера на сообщение о присутствии,
     возращает 200 если все ОК или генерирует исключение при ошибке
@@ -75,13 +76,13 @@ def create_presence(account_name='Guest'):
     if RESPONSE in message:
         if message[RESPONSE] == 200:
             return '200 : OK'
-        elif message[RESPONSE] == 400:
-            raise ServerError(f'400 : {message[ERROR]}')
     raise ReqFieldMissingError(RESPONSE)
 
 
 @log
-
+def arg_parser():
+    """Создаём парсер аргументов коммандной строки
+    и читаем параметры, возвращаем 3 параметра
     """
     parser = argparse.ArgumentParser()
     parser.add_argument('addr', default=DEFAULT_IP_ADDRESS, nargs='?')

@@ -4,13 +4,17 @@ import socket
 import sys
 import argparse
 import logging
+import time
+
 from common.variables import ACTION, PRESENCE, TIME, USER, ACCOUNT_NAME, \
     RESPONSE, DEFAULT_PORT, MAX_CONNECTIONS, ERROR, MESSAGE, SENDER, MESSAGE_TEXT
 from common.utils import get_message, send_message
-from decos import log
 
 # Инициализация логирования сервера.
 SERVER_LOGGER = logging.getLogger('server')
+
+
+def process_client_message(message, messages_list, client):
     """
     Обработчик сообщений от клиентов, принимает словарь - сообщение от клинта,
     проверяет корректность, отправляет словарь-ответ для клиента с результатом приёма.
@@ -39,7 +43,6 @@ SERVER_LOGGER = logging.getLogger('server')
         return
 
 
-@log
 def create_arg_parser():
     """
     Парсер аргументов коммандной строки
